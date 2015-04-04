@@ -91,6 +91,16 @@ describe('periodFollowedBySpace', function() {
         expect(result).toEqual([]);
     });
 
+    it('passes if period followed by ).', function() {
+        var result = rule.check('(I love you.)', '');
+        expect(result).toEqual([]);
+    });
+
+    it('passes for URLs.', function() {
+        var result = rule.check('http://google.com', '');
+        expect(result).toEqual([]);
+    });
+
 });
 
 describe('split', function() {
