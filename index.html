@@ -1,0 +1,72 @@
+<!DOCTYPE>
+<html>
+<head>
+<style>
+textarea {
+    width: 500px;
+    height: 300px;
+}
+.results-heading {
+    display: none;
+}
+</style>
+</head>
+<body>
+<h1>APA Checker</h1>
+<p>
+    This APA Checker/Lint/Validator does miscellaneous checks for conformity with
+    the American Psychological Association
+    <a href="https://owl.english.purdue.edu/owl/resource/560/01/">APA citation and format style</a>.
+</p>
+<p>
+    Just paste in your document below, then press Validate.
+</p>
+<p>
+    The <a href="https://github.com/JonathanAquino/apacheck">source code</a>
+    is written in JavaScript, so it's easy for people to modify and to create
+    patches/pull requests.
+</p>
+<dl>
+    <dd><textarea name="document">An Inquiry Into The Nature Of Ice Cream Cones.
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua (Aquino, et al. 1996). Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui (Sumo, et al. 2003) officia deserunt mollit anim id est laborum.
+
+References
+
+Smith, J., Tree, T. (1991) Ice cream and the state.Elsevier, NY: New York.
+Hopper, G. (2023). The Decline And Fall Of Ice Cream. Dessert Journal, 5(15), 1-3.
+    </textarea></dd>
+    <dd><input type="button" value="Validate"></dd>
+</dl>
+<div class="results-section">
+    <h2 class="results-heading">Results</h2>
+    <ul class="results">
+</div>
+</ul>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/xregexp/2.0.0/xregexp-min.js"></script>
+<script src="apacheck.js"></script>
+<script>
+$('input[type="button"]').click(function () {
+    $('.results').empty();
+    $('.results-heading').show();
+    var results = apacheck.check($('textarea').val());
+    if ($.isEmptyObject(results)) {
+        $('.results').append('<li>No results.</li>');
+    } else {
+        $.each(results, function (description, excerpts) {
+            var $li = $('<li></li>').text(description);
+            var $ul = $('<ul></ul>');
+            $.each(excerpts, function (i, excerpt) {
+                $ul.append($('<li></li>').text(excerpt));
+            })
+            $li.append($ul);
+            $('.results').append($li);
+        });
+    }
+    $('.results-section').effect('highlight', {}, 1500);
+});
+</script>
+</body>
+</html>
