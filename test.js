@@ -86,6 +86,11 @@ describe('periodFollowedBySpace', function() {
         expect(result).toEqual([]);
     });
 
+    it('passes if 22.11 encountered', function() {
+        var result = rule.check('There are 22.11 ice cream cones.', '');
+        expect(result).toEqual([]);
+    });
+
 });
 
 describe('split', function() {
