@@ -88,8 +88,8 @@ var apacheck = {
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('
-                  +     '.{0,10}'     // 10 characters of context
-                  +     '\\.[^ ,\n]'  // Period followed by something other than a space, comma, or newline
+                  +     '.{0,10}'             // 10 characters of context
+                  +     '(?!\\b).\\.[^ ,\n]'  // Period followed by something other than a space, comma, or newline
                   + ')'
                 , 'g');
                 return (body + ' ' + references).match(regexp) || [];

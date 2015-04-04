@@ -73,7 +73,17 @@ describe('periodFollowedBySpace', function() {
 
     it('fails if if periods are not followed by spaces.', function() {
         var result = rule.check('Hello.World.Foo.', '');
-        expect(result).toEqual(['Hello.W', 'orld.F']);
+        expect(result).toEqual(['Hello.World.F']);
+    });
+
+    it('passes if n.d. encountered', function() {
+        var result = rule.check('Smith (n.d.).', '');
+        expect(result).toEqual([]);
+    });
+
+    it('passes if e.g. encountered', function() {
+        var result = rule.check('Smith (n.d.).', '');
+        expect(result).toEqual([]);
     });
 
 });
