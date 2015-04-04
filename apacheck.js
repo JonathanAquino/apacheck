@@ -89,8 +89,9 @@ var apacheck = {
                 var content = (body + ' ' + references).replace(/http:\/\/[^ ]*/g, '');
                 var regexp = XRegExp(
                     '('
-                  +     '.{0,10}'                // 10 characters of context
-                  +     '(?!\\b).\\.[^ ,\n0-9)]' // Period followed by something other than a space, comma, or newline
+                  +     '.{0,10}'         // 10 characters of context
+                  +     '(?!\\b).'        // If there is a single letter before the period, it's ok
+                  +     '\\.[^ ,\n0-9)]'  // Period followed by something other than a space, comma, or newline
                   + ')'
                 , 'g');
                 return (content).match(regexp) || [];
