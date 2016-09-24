@@ -13,3 +13,7 @@ Paste in your APA document and hit the Validate button.
 If you have a suggestion for a check, please file an issue for it.
 Or even better, submit a pull request. The source code is written in JavaScript,
 so it's easy for people to modify and send me patches and pull requests.
+
+## Thanks to...
+
+Chantal Mülders of Rotterdam Business School for suggesting numerous checks.
