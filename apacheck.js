@@ -96,6 +96,20 @@ var apacheck = {
                 , 'g');
                 return (content).match(regexp) || [];
             }
+        },
+        semicolonBetweenReferences: {
+            description: 'Combine separate references into one with a semicolon. Bad: (Jones 2000) (Smith 1990). Good: (Jones 2000; Smith 1990).',
+            check: function (body, references) {
+                var regexp = XRegExp(
+                    '('
+                  +     '.{0,10}'                  // 10 characters of context
+                  +     '\\([^)]+ \\d\\d\\d\\d\\)' // First reference
+                  +     '[ ,]*'                    // Space or comma
+                  +     '\\([^)]+ \\d\\d\\d\\d\\)' // Second reference
+                  + ')'
+                , 'g');
+                return (body).match(regexp) || [];
+            }
         }
     },
     /**
