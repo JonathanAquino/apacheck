@@ -19,6 +19,19 @@ var apacheck = {
                 return [];
             }
         },
+        lowercaseYearLetter: {
+            description: 'Lowercase the letter that comes after the year: 1999a, not 1999A',
+            check: function (body, references) {
+                var regexp = XRegExp(
+                    '('
+                  +     '.{0,10}'          // 10 characters of context
+                  +     '\\b\\d\\d\\d\\d[A-Z][),]'
+                  +     '.{0,10}'          // 10 characters of context
+                  + ')'
+                , 'g');
+                return body.match(regexp) || [];
+            }
+        },
         noCommaBeforeEtAl: {
             description: 'Do not put a comma before "et al."',
             check: function (body, references) {
