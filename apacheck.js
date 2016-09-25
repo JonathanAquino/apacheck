@@ -123,6 +123,19 @@ var apacheck = {
                 , 'g');
                 return (body).match(regexp) || [];
             }
+        },
+        {
+            description: 'References need to be included in the sentence, so the period is after the reference. <strong>Bad:</strong> text. (Jones, 2000) Text. <strong>Good:</strong> text (Jones, 2000). Text. <strong>Also Good:</strong> text (Jones, 2000) text. Text',
+            check: function (body, references) {
+                var regexp = XRegExp(
+                    '('
+                  +     '.{0,10}'                  // 10 characters of context
+                  +     '\\.\\s+'                  // Period followed by whitespace
+                  +     '\\([^)]+ \\d\\d\\d\\d\\)' // Second reference
+                  + ')'
+                , 'g');
+                return (body).match(regexp) || [];
+            }
         }
     ],
     /**
