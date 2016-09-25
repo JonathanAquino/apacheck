@@ -4,8 +4,8 @@
  * @see
  */
 var apacheck = {
-    rules: {
-        sample: {
+    rules: [
+        {
             description: 'A description of the rule.',
             /**
              * Returns a list of excerpts for each violation of the rule.
@@ -19,7 +19,7 @@ var apacheck = {
                 return [];
             }
         },
-        lowercaseYearLetter: {
+        {
             description: 'Lowercase the letter that comes after the year: 1999a, not 1999A',
             check: function (body, references) {
                 var regexp = XRegExp(
@@ -32,7 +32,7 @@ var apacheck = {
                 return body.match(regexp) || [];
             }
         },
-        noCommaBeforeEtAl: {
+        {
             description: 'Do not put a comma before "et al."',
             check: function (body, references) {
                 var regexp = XRegExp(
@@ -45,7 +45,7 @@ var apacheck = {
                 return body.match(regexp) || [];
             }
         },
-        periodAfterDateInReferences: {
+        {
             description: 'References: Put period after date.',
             check: function (body, references) {
                 var regexp = XRegExp(
@@ -59,7 +59,7 @@ var apacheck = {
                 return references.match(regexp) || [];
             }
         },
-        ampersandBeforeLastAuthorInReferences: {
+        {
             description: 'References: Put & before last author.',
             check: function (body, references) {
                 var regexp = XRegExp(
@@ -80,7 +80,7 @@ var apacheck = {
                 return references.match(regexp) || [];
             }
         },
-        lowercasedTitleInReferences: {
+        {
             description: 'References: Consider lowercasing the words in this title if it is for an article.',
             check: function (body, references) {
                 var regexp = XRegExp(
@@ -96,7 +96,7 @@ var apacheck = {
                 return references.match(regexp) || [];
             }
         },
-        periodFollowedBySpace: {
+        {
             description: 'Every period should be followed by a space.',
             check: function (body, references) {
                 var content = (body + ' ' + references).replace(/http:\/\/[^ ]*/g, '');
@@ -110,7 +110,7 @@ var apacheck = {
                 return (content).match(regexp) || [];
             }
         },
-        semicolonBetweenReferences: {
+        {
             description: 'Combine separate references into one with a semicolon. Bad: (Jones 2000) (Smith 1990). Good: (Jones 2000; Smith 1990).',
             check: function (body, references) {
                 var regexp = XRegExp(
@@ -124,7 +124,7 @@ var apacheck = {
                 return (body).match(regexp) || [];
             }
         }
-    },
+    ],
     /**
      * Returns an object whose keys are rule descriptions and values are arrays
      * of excerpts around each violation.
@@ -136,7 +136,7 @@ var apacheck = {
     check: function (s) {
         var parts = this.split(s);
         var results = {};
-        $.each(this.rules, function (name, rule) {
+        $.each(this.rules, function (i, rule) {
             var excerpts = rule.check(parts.body, parts.references);
             if (excerpts.length > 0) {
                 results[rule.description] = excerpts;
