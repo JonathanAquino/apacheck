@@ -111,7 +111,7 @@ var apacheck = {
             }
         },
         {
-            description: 'Combine separate references into one with a semicolon. Bad: (Jones 2000) (Smith 1990). Good: (Jones 2000; Smith 1990).',
+            description: 'Combine separate references into one with a semicolon. <strong>Bad:</strong> (Jones 2000) (Smith 1990). <strong>Good:</strong> (Jones 2000; Smith 1990).',
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('

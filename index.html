@@ -60,7 +60,7 @@ $('input[type="button"]').click(function () {
         $('.results').append('<li>No results.</li>');
     } else {
         $.each(results, function (description, excerpts) {
-            var $li = $('<li></li>').text(description);
+            var $li = $('<li></li>').html(description);
             var $ul = $('<ul></ul>');
             $.each(excerpts, function (i, excerpt) {
                 $ul.append($('<li></li>').text(excerpt));
