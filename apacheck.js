@@ -136,6 +136,20 @@ var apacheck = {
                 , 'g');
                 return (body).match(regexp) || [];
             }
+        },
+        {
+            description: 'In-text citations use &amp; for multiple authors if the names are in brackets. <strong>Bad:</strong> (Wegener and Petty, 1994). (Jones, 2000) Text. <strong>Good:</strong> (Wegener &amp; Petty, 1994)',
+            check: function (body, references) {
+                var regexp = XRegExp(
+                    '('
+                  +     '.{0,10}'          // 10 characters of context
+                  +     '\\('              // Opening parenthesis
+                  +     '[^)]+ and [^)]+'  // ... and ...
+                  +     ' \\d\\d\\d\\d\\)' // Year, closing parenthesis
+                  + ')'
+                , 'g');
+                return (body).match(regexp) || [];
+            }
         }
     ],
     /**
