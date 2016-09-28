@@ -111,7 +111,7 @@ var apacheck = {
             }
         },
         {
-            description: 'Combine separate references into one with a semicolon. <strong>Bad:</strong> (Jones 2000) (Smith 1990). <strong>Good:</strong> (Jones 2000; Smith 1990).',
+            description: 'Combine separate references into one with a semicolon. <strong>Bad:</strong> (Jones 2000) (Smith 1990) <strong>Good:</strong> (Jones 2000; Smith 1990)',
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('
@@ -125,7 +125,7 @@ var apacheck = {
             }
         },
         {
-            description: 'References need to be included in the sentence, so the period is after the reference. <strong>Bad:</strong> text. (Jones, 2000) Text. <strong>Good:</strong> text (Jones, 2000). Text. <strong>Also Good:</strong> text (Jones, 2000) text. Text',
+            description: 'References need to be included in the sentence, so the period is after the reference. <strong>Bad:</strong> text. (Jones, 2000) Text <strong>Good:</strong> text (Jones, 2000). Text <strong>Also Good:</strong> text (Jones, 2000) text. Text',
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('
@@ -138,7 +138,7 @@ var apacheck = {
             }
         },
         {
-            description: 'In-text citations use &amp; for multiple authors if the names are in brackets. <strong>Bad:</strong> (Wegener and Petty, 1994). (Jones, 2000) Text. <strong>Good:</strong> (Wegener &amp; Petty, 1994)',
+            description: 'In-text citations use &amp; for multiple authors if the names are in brackets. <strong>Bad:</strong> (Wegener and Petty, 1994) <strong>Good:</strong> (Wegener &amp; Petty, 1994)',
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('
