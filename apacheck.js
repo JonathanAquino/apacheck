@@ -150,6 +150,20 @@ var apacheck = {
                 , 'g');
                 return (body).match(regexp) || [];
             }
+        },
+        {
+            description: 'In-text citations use "and" for multiple authors if only the year is in brackets. <strong>Bad:</strong> Wegener & Petty (1994) <strong>Good:</strong> Wegener and Petty (1994)',
+            check: function (body, references) {
+                var regexp = XRegExp(
+                    '('
+                  +     '.{0,10}'            // 10 characters of context
+                  +     '&'                  // &
+                  +     '[^.,()]{0,100}'     // Up to 100 of anythings besides .,()
+                  +     '\\(\\d\\d\\d\\d\\)' // Year in brackets
+                  + ')'
+                , 'g');
+                return (body).match(regexp) || [];
+            }
         }
     ],
     /**
