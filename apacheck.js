@@ -4,6 +4,10 @@
  * @see
  */
 var apacheck = {
+
+    /** @type {String} Regex pattern for a year: NNNN or n.d. */
+    year: '(\\d\\d\\d\\d|n\.d\.)',
+
     rules: [
         {
             description: 'A description of the rule.',
@@ -24,9 +28,9 @@ var apacheck = {
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('
-                  +     '.{0,10}'          // 10 characters of context
+                  +     '.{0,10}'                  // 10 characters of context
                   +     '\\b\\d\\d\\d\\d[A-Z][),]'
-                  +     '.{0,10}'          // 10 characters of context
+                  +     '.{0,10}'                  // 10 characters of context
                   + ')'
                 , 'g');
                 return body.match(regexp) || [];
@@ -50,10 +54,10 @@ var apacheck = {
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('
-                  +     '.{0,10}'                   // 10 characters of context
-                  +     '\\(\\d\\d\\d\\d[^)]*\\)'   // The date
-                  +     '[^.]'                      // No period
-                  +     '.{0,10}'                   // 10 characters of context
+                  +     '.{0,10}'                        // 10 characters of context
+                  +     '\\('+apacheck.year+'[^)]*\\)'   // The date
+                  +     '[^.]'                           // No period
+                  +     '.{0,10}'                        // 10 characters of context
                   + ')'
                 , 'g');
                 return references.match(regexp) || [];
@@ -115,10 +119,10 @@ var apacheck = {
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('
-                  +     '.{0,10}'                  // 10 characters of context
-                  +     '\\([^)]+ \\d\\d\\d\\d\\)' // First reference
-                  +     '[ ,]*'                    // Space or comma
-                  +     '\\([^)]+ \\d\\d\\d\\d\\)' // Second reference
+                  +     '.{0,10}'                       // 10 characters of context
+                  +     '\\([^)]+ '+apacheck.year+'\\)' // First reference
+                  +     '[ ,]*'                         // Space or comma
+                  +     '\\([^)]+ '+apacheck.year+'\\)' // Second reference
                   + ')'
                 , 'g');
                 return (body).match(regexp) || [];
@@ -129,9 +133,9 @@ var apacheck = {
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('
-                  +     '.{0,10}'                  // 10 characters of context
-                  +     '\\.\\s+'                  // Period followed by whitespace
-                  +     '\\([^)]+ \\d\\d\\d\\d\\)' // Second reference
+                  +     '.{0,10}'                       // 10 characters of context
+                  +     '\\.\\s+'                       // Period followed by whitespace
+                  +     '\\([^)]+ '+apacheck.year+'\\)' // Second reference
                   + ')'
                 , 'g');
                 return (body).match(regexp) || [];
@@ -142,10 +146,10 @@ var apacheck = {
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('
-                  +     '.{0,10}'          // 10 characters of context
-                  +     '\\('              // Opening parenthesis
-                  +     '[^)]+ and [^)]+'  // ... and ...
-                  +     ' \\d\\d\\d\\d\\)' // Year, closing parenthesis
+                  +     '.{0,10}'               // 10 characters of context
+                  +     '\\('                   // Opening parenthesis
+                  +     '[^)]+ and [^)]+'       // ... and ...
+                  +     ' '+apacheck.year+'\\)' // Year, closing parenthesis
                   + ')'
                 , 'g');
                 return (body).match(regexp) || [];
@@ -156,10 +160,10 @@ var apacheck = {
             check: function (body, references) {
                 var regexp = XRegExp(
                     '('
-                  +     '.{0,10}'            // 10 characters of context
-                  +     '&'                  // &
-                  +     '[^.,()]{0,100}'     // Up to 100 of anythings besides .,()
-                  +     '\\(\\d\\d\\d\\d\\)' // Year in brackets
+                  +     '.{0,10}'                 // 10 characters of context
+                  +     '&'                       // &
+                  +     '[^.,()]{0,100}'          // Up to 100 of anythings besides .,()
+                  +     '\\('+apacheck.year+'\\)' // Year in brackets
                   + ')'
                 , 'g');
                 return (body).match(regexp) || [];
